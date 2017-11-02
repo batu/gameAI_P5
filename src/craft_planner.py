@@ -5,6 +5,14 @@ from _heapq import heappop, heappush
 
 Recipe = namedtuple('Recipe', ['name', 'check', 'effect', 'cost'])
 
+class Node():
+    def __init__(self, name, state, cost):
+        self.name = name
+        self.state = state
+        self.cost = cost
+
+    def __lt__(self, other):
+        return self.cost < other.cost
 
 class State(OrderedDict):
     """ This class is a thin wrapper around an OrderedDict, which is simply a dictionary which keeps the order in
@@ -118,18 +126,16 @@ def make_goal_checker(goal):
     # met the goal criteria. This code runs once, before the search is attempted.
 
     def is_goal(state):
-        #print("Printing state in is_goal:{}".format(state))
-        #print("Printing goal in is_goal:{}".format(goal))
-        diff_keys = set(goal.keys()) - set(state.keys())
-        diff_vals = set(goal.values()) - set(state.values())
-        #print(diff_keys)
-        #print(diff_vals)
-        #For some reason == isnt working
+        print("Printing state in is_goal:{}".format(state))
+        print("Printing goal in is_goal:{}".format(goal))
 
-        #if there is no difference between current and isgoal we found the goal
-        if not diff_keys and not diff_vals:
-            print("Goal reached!")
-            return True
+        for item, amount in goal.items():
+            #print("Printing item:{}".format(item))
+            #print("Printing amount :{}".format(amount))
+            if item in state.keys():
+                if amount <= state[item]:
+                    print("Goal reached!")
+                    return True
         return False
 
     return is_goal
@@ -142,21 +148,44 @@ def graph(state):
     # to the given state, and the cost for the rule.
     for r in all_recipes:
         if r.check(state):
-            yield (r.name, r.effect(state), r.cost)
+            yield Node(r.name, r.effect(state), r.cost)
 
 
-def heuristic(state):
+#Takes a state, which is a the inventory.
+def heuristic(state): #take goal here.
+
+    # check what is the maximum amount of items required to craft another item. (I think it is 6)
+    # cutoff_treshold = 6
+    # if any item in the goal state.amount is > cutoff_treshold.]
+    # cutoff_treshold = amount
+
+    # returnning is a number. 999999999999999999999
+
     # Implement your heuristic here!
-    print("In heuristic.")
+    #print("In heuristic.")
     return 0
 
 def search(graph, state, is_goal, limit, heuristic):
 
     start_time = time()
     path = []
+    queue = []
+    closed_set = []
+
+    current_state = state
+    current_node = Node("Initial inventory.", current_state, 0)
+    init_node = current_node
+
+    distances = {}
+    distances[current_node] = 0
+
+    # The dictionary that will store the backpointers
+    backpointers = {}
+    backpointers[current_node] = None
 
 
-    for recipe in graph(state):
+    for state_node in graph(current_state):
+        queue.append(state_node)
         print("Printing rule in search: {}".format(recipe))
 
     # Implement your search here! Use your heuristic here!
@@ -165,10 +194,34 @@ def search(graph, state, is_goal, limit, heuristic):
     # in the path and the action that took you to this state
     #print("Printing the state: {}".format(state))
     #print("Printing the graph: {}".format(graph))
-    while time() - start_time < limit:
-        if is_goal(state):
+    while time() - start_time < limit or queue:
+
+        if is_goal(current_state):
+            path = reconstruct_path(init_node, backpointers, current_node)
             return path
-        continue
+
+        current_node = heappop(queue)
+        current_state = current_node.state
+        closed_set.append(current_node)
+
+        for child_node in graph(current_state):
+
+            #Lets be safe.
+            if child_node in closed_set:
+                continue
+
+            if child_node not in queue:
+                queue.append(child_node)
+
+
+            tentative_score = current_node.cost + child_node.cost + heuristic(state)
+            if child_node not in distances or tentative_score <= distances[child_node]:
+                distances[child_node] = tentative_score
+
+            backpointers[child_node] = current_node
+
+        print("Printing current_state in search:{}".format(current_state))
+
 
     # Failed to find a path
     print(time() - start_time, 'seconds.')
@@ -176,65 +229,14 @@ def search(graph, state, is_goal, limit, heuristic):
     return None
 
 
-def astar_search(source_point: tuple, source_box: tuple, destination_box: tuple, destination_point:tuple, box_adj_list)-> list:
+def reconstruct_path(init_node, cameFrom, current_node):
+    total_path = [(current_node.state, current_node.name)]
+    while current_node in cameFrom.keys():
+        current_node = cameFrom[current_node]
+        total_path.append((current_node.state, current_node.name))
+    total_path.append((init_node.state,init_node.name))
+    return total_path
 
-    # The priority queue
-    queue = []
-
-    # The dictionary that will be returned with the costs
-    distances = {}
-    distances[source_box] = 0
-
-    # The dictionary that will store the backpointers
-    backpointers = {}
-    backpointers[source_box] = None
-
-    #[box] = points (y,x)
-    detail_points = {}
-    detail_points[source_box] = source_point
-
-    while queue:
-        current_dist, current_box = heappop(queue)
-
-        # Check if current node is the destination
-        if current_box == destination_box:
-
-            # List containing all cells from initial_position to destination
-            path = [current_box]
-            point_path = [detail_points[current_box]]
-
-            # Go backwards from destination until the source using backpointers
-            # and add all the nodes in the shortest path into a list
-            current_back_node = backpointers[current_box]
-            while current_back_node is not None:
-                path.append(current_back_node)
-                point_path.append(detail_points[current_back_node])
-                current_back_node = backpointers[current_back_node]
-
-            point_path.reverse()
-            point_path.append(destination_point)
-
-            point_segments = []
-            for i in range(0, len(point_path)-1):
-                point_segments.append((point_path[i],point_path[i+1]))
-
-            return path[::-1], point_segments
-
-        # Calculate cost from current note to all the adjacent ones
-        for adj_box in box_adj_list[current_box]:
-            current_point = detail_points[current_box]
-            adj_box_point = box_to_point(current_box, adj_box, current_point)
-            adj_box_cost = math.sqrt((adj_box_point[0] - current_point[0])**2 + (adj_box_point[1] - current_point[1])**2)
-            pathcost = current_dist + adj_box_cost + heuristic(current_point, destination_point)
-
-            # If the cost is new
-            if adj_box not in distances or pathcost < distances[adj_box]:
-                distances[adj_box] = pathcost
-                detail_points[adj_box] = adj_box_point
-                backpointers[adj_box] = current_box
-                heappush(queue, (pathcost, adj_box))
-
-    return [],[]
 
 
 
