@@ -52,18 +52,26 @@ def make_checker(rule):
         consumes = None
         requires = None
         if "Consumes" in rule:
+            #List of tuples containing the consumed item and how many of is needed.
             consumes = rule["Consumes"].items()
+            #List of required items (not consumed)
         if "Requires" in rule:
             requires = rule["Requires"]
 
+        #if it consumes any items
         if consumes:
+            #check if we have the consumed items and necesary amount, if not return false
             for consumed, amount in consumes:
                 if not (consumed in state and state[consumed] >= amount):
                     return False
+
+        # same as above
         if requires:
             for required in requires:
                 if not (required not in state):
                     return False
+
+        #Reaching here means we have all of what we need
         return True
 
     return check
@@ -79,6 +87,9 @@ def make_effector(rule):
     def effect(state):
         # This code is called by graph(state) and runs millions of times
         # Tip: Do something with rule['Produces'] and rule['Consumes'].
+
+
+        #Copy the state.
         next_state = state.copy()
         consumes_list = None
         produces_list = None
@@ -87,10 +98,12 @@ def make_effector(rule):
         if "Produces" in rule:
             produces_list = rule["Produces"].items()
 
+        #Update the sate by consuming the amount of items
         if consumes_list:
             for consumed, amount in consumes_list:
                 next_state[consumed] -= amount
 
+        #add the amount of items produced to state.
         if produces_list:
             for produced, amount in produces_list:
                 next_state[produced] += amount
@@ -112,6 +125,8 @@ def make_goal_checker(goal):
         #print(diff_keys)
         #print(diff_vals)
         #For some reason == isnt working
+
+        #if there is no difference between current and isgoal we found the goal
         if not diff_keys and not diff_vals:
             print("Goal reached!")
             return True
@@ -141,8 +156,8 @@ def search(graph, state, is_goal, limit, heuristic):
     path = []
 
 
-    for rule in graph(state):
-        print("Printing rule in search: {}".format(rule))
+    for recipe in graph(state):
+        print("Printing rule in search: {}".format(recipe))
 
     # Implement your search here! Use your heuristic here!
     # When you find a path to the goal return a list of tuples [(state, action)]
