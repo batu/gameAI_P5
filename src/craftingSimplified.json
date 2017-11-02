@@ -1,9 +1,10 @@
 {
  "Initial": {},
  "Goal": {
-   "bench":15,
-   "rail": 20,
-   "cart": 1
+   "stick":1,
+   "bench":10,
+   "rail":16,
+   "cart":1
  },
  "Items": [
    "bench",
@@ -51,30 +52,12 @@
      },
      "Time": 1
    },
-   "wooden_pickaxe for coal": {
-     "Produces": {
-       "coal": 1
-     },
-     "Requires": {
-       "wooden_pickaxe": true
-     },
-     "Time": 4
-   },
    "iron_pickaxe for ore": {
      "Produces": {
        "ore": 1
      },
      "Requires": {
        "iron_pickaxe": true
-     },
-     "Time": 2
-   },
-   "wooden_axe for wood": {
-     "Produces": {
-       "wood": 1
-     },
-     "Requires": {
-       "wooden_axe": true
      },
      "Time": 2
    },
@@ -121,24 +104,6 @@
      },
      "Time": 1
    },
-   "iron_pickaxe for cobble": {
-     "Produces": {
-       "cobble": 1
-     },
-     "Requires": {
-       "iron_pickaxe": true
-     },
-     "Time": 1
-   },
-   "stone_axe for wood": {
-     "Produces": {
-       "wood": 1
-     },
-     "Requires": {
-       "stone_axe": true
-     },
-     "Time": 1
-   },
    "craft iron_pickaxe at bench": {
      "Produces": {
        "iron_pickaxe": 1
@@ -167,15 +132,6 @@
    "punch for wood": {
      "Produces": {
        "wood": 1
-     },
-     "Time": 4
-   },
-   "stone_pickaxe for ore": {
-     "Produces": {
-       "ore": 1
-     },
-     "Requires": {
-       "stone_pickaxe": true
      },
      "Time": 4
    },
@@ -223,24 +179,6 @@
      },
      "Time": 2
    },
-   "wooden_pickaxe for cobble": {
-     "Produces": {
-       "cobble": 1
-     },
-     "Requires": {
-       "wooden_pickaxe": true
-     },
-     "Time": 4
-   },
-   "iron_pickaxe for coal": {
-     "Produces": {
-       "coal": 1
-     },
-     "Requires": {
-       "iron_pickaxe": true
-     },
-     "Time": 1
-   },
    "craft bench": {
      "Produces": {
        "bench": 1
@@ -275,15 +213,6 @@
        "ore": 1
      },
      "Time": 5
-   },
-   "iron_axe for wood": {
-     "Produces": {
-       "wood": 1
-     },
-     "Requires": {
-       "iron_axe": true
-     },
-     "Time": 1
    }
  }
 }

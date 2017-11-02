@@ -14,6 +14,35 @@ class Node():
     def __lt__(self, other):
         return self.cost < other.cost
 
+class CookBookEntry():
+
+    def __init__(self, name, cost, effector, requires = None, consumes = None, produces = None, path = None):
+        self.name = name
+        self.requires = requires
+        self.consumes = consumes
+        self.produces = produces
+        self.cost = cost
+        self.effector = effector
+        self.ProductName = None
+        self.path = []
+        self.actively_learned = False
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __str__(self):
+        return str("Name:{}\nRequres:{}\nConsumes:{}\nProduces:{}\nCost:{}\nEffector:{}\nProductName:{}\nPath:{}\n".format(\
+            self.name, self.requires, self.consumes, self.produces, self.cost, self.effector, self.ProductName, self.path))
+
+    def updateProductName(self):
+        self.ProductName = list(self.produces.keys())[0]
+
+    #effectorPath
+    def updatePath(self, path_needed_to_get_here):
+        if path_needed_to_get_here:
+            self.path += path_needed_to_get_here
+        self.path.append(self.effector)
+
 class State(OrderedDict):
     """ This class is a thin wrapper around an OrderedDict, which is simply a dictionary which keeps the order in
         which elements are added (for consistent key-value pair comparisons). Here, we have provided functionality
@@ -41,6 +70,91 @@ class State(OrderedDict):
     def __str__(self):
         return str(dict(item for item in self.items() if item[1] > 0))
 
+#path is a list of effect functions,
+def create_from_path(path, initial_state):
+    node = None
+    current_state = initial_state
+    for effect in path:
+        node = effect(current_state)
+        current_state = node.state
+    return node
+
+### The Path Learning Stuff
+def isPrimitive(cook_book_entry):
+
+    if cook_book_entry.requires == None and cook_book_entry.consumes == None:
+        print("{} is a primitive!".format(cook_book_entry.name))
+        return True
+    return False
+
+def use_paths_get_goal(cook_book, state, goal):
+    current_state = state
+
+    while not (is_goal(current_state)):
+        for key in goal.keys():
+            if state[key] < goal[key]:
+                cook_book_entry = next((entry for entry in cook_book if entry.ProductName == key), None)
+                print("Making {} from current state:{}".format(cook_book_entry.name, current_state))
+                current_state = walk_path(current_state, cook_book_entry.path)
+    return current_state
+
+def walk_path(state, path):
+    current_state = state
+    for effect in path:
+        current_state = effect(current_state)
+        print(current_state)
+    return current_state
+
+def create_cookbook_entry(name, recipe, rule):
+    newCookBookEntry = CookBookEntry(name, recipe.cost, recipe.effect)
+    if "Requires" in rule.keys():
+        newCookBookEntry.requires = rule["Requires"]
+    if "Consumes" in rule.keys():
+        newCookBookEntry.consumes = rule["Consumes"]
+    if "Produces" in rule.keys():
+        newCookBookEntry.produces = rule["Produces"]
+        #print("In {} updated produces ={}".format(name, rule["Produces"]))
+    newCookBookEntry.updateProductName()
+    #print("In the creation")
+    #print(newCookBookEntry)
+    return newCookBookEntry
+
+def learn_shortest_paths(cook_book, goal):
+    # if goal is already known, return its path, and own effector added to it
+    # else check the components needed to make it and learn them
+    active_goal = list(goal.keys())[0]
+
+    def learn(goal):
+        goal_entry = next((entry for entry in cook_book if entry.ProductName == goal ), None)
+        while not goal_entry.path:
+            for cook_book_entry in cook_book:
+                if goal == cook_book_entry.ProductName:
+                    #print("In the goal==productname")
+                    if cook_book_entry.path:
+                       return cook_book_entry.path
+                    else:
+                        needed_list = []
+                        if cook_book_entry.requires:
+                            needed_list += list(cook_book_entry.requires.keys())
+                        if cook_book_entry.consumes:
+                            needed_list += list(cook_book_entry.consumes.keys())
+                        learning_path = []
+                        #print("Needed list in shortest_path:{}".format(needed_list))
+                        #print("Learning path in shortest_path:{}".format(learning_path))
+                        for needed in needed_list:
+                            needed_entry = next((entry for entry in cook_book if entry.ProductName == needed ), None)
+                            if not needed_entry.actively_learned:
+                                needed_entry.actively_learned = True
+                                learning_path += learn(needed)
+                            else:
+                                continue
+                        cook_book_entry.updatePath(learning_path)
+                        return cook_book_entry.path
+        return goal_entry.path
+
+    learn(active_goal)
+    print("Learning complete.\n")
+    return
 
 def make_checker(rule):
     # Implement a function that returns a function to determine whether a state meets a
@@ -84,7 +198,6 @@ def make_checker(rule):
 
     return check
 
-
 def make_effector(rule):
     # Implement a function that returns a function which transitions from state to
     # new_state given the rule. This code runs once, when the rules are constructed
@@ -120,14 +233,13 @@ def make_effector(rule):
 
     return effect
 
-
 def make_goal_checker(goal):
     # Implement a function that returns a function which checks if the state has
     # met the goal criteria. This code runs once, before the search is attempted.
 
     def is_goal(state):
-        print("Printing state in is_goal:{}".format(state))
-        print("Printing goal in is_goal:{}".format(goal))
+        #print("Printing state in is_goal:{}".format(state))
+        #print("Printing goal in is_goal:{}".format(goal))
 
         for item, amount in goal.items():
             #print("Printing item:{}".format(item))
@@ -140,7 +252,6 @@ def make_goal_checker(goal):
 
     return is_goal
 
-
 def graph(state):
     # Iterates through all recipes/rules, checking which are valid in the given state.
     # If a rule is valid, it returns the rule's name, the resulting state after application
@@ -149,7 +260,6 @@ def graph(state):
     for r in all_recipes:
         if r.check(state):
             yield Node(r.name, r.effect(state), r.cost)
-
 
 #Takes a state, which is a the inventory.
 def heuristic(state): #take goal here.
@@ -186,7 +296,7 @@ def search(graph, state, is_goal, limit, heuristic):
 
     for state_node in graph(current_state):
         queue.append(state_node)
-        print("Printing rule in search: {}".format(recipe))
+        #print("Printing rule in search: {}".format(recipe))
 
     # Implement your search here! Use your heuristic here!
     # When you find a path to the goal return a list of tuples [(state, action)]
@@ -220,14 +330,13 @@ def search(graph, state, is_goal, limit, heuristic):
 
             backpointers[child_node] = current_node
 
-        print("Printing current_state in search:{}".format(current_state))
+        #print("Printing current_state in search:{}".format(current_state))
 
 
     # Failed to find a path
     print(time() - start_time, 'seconds.')
     print("Failed to find a path from", state, 'within time limit.')
     return None
-
 
 def reconstruct_path(init_node, cameFrom, current_node):
     total_path = [(current_node.state, current_node.name)]
@@ -238,11 +347,9 @@ def reconstruct_path(init_node, cameFrom, current_node):
     return total_path
 
 
-
-
 # The json file designates the initial state, and the goals.
 if __name__ == '__main__':
-    with open('crafting.json') as f:
+    with open('craftingSimplified.json') as f:
         Crafting = json.load(f)
 
     # # List of items that can be in your inventory:
@@ -262,11 +369,20 @@ if __name__ == '__main__':
     #count = 0
     #Name of the item
     #The recipe (produces, requires, consumes, time
+    rules = {}
+
+    COOK_BOOK = []
     for name, rule in Crafting['Recipes'].items():
         checker = make_checker(rule)
         effector = make_effector(rule)
         recipe = Recipe(name, checker, effector, rule['Time'])
         all_recipes.append(recipe)
+        newCookBookEntry = create_cookbook_entry(name, recipe, rule)
+        COOK_BOOK.append(newCookBookEntry)
+
+        if isPrimitive(newCookBookEntry):
+            newCookBookEntry.updatePath(None)
+
     #print("The for loop ran {} times".format(count))
 
     # Create a function which checks for the goal
@@ -276,9 +392,14 @@ if __name__ == '__main__':
     state = State({key: 0 for key in Crafting['Items']})
     state.update(Crafting['Initial'])
 
-    # Search for a solution
-    resulting_plan = search(graph, state, is_goal, 30, heuristic)
+    print("This is the current goal: {}".format(Crafting['Goal']))
+    learn_shortest_paths(COOK_BOOK, Crafting['Goal'])
+    final_state = use_paths_get_goal(COOK_BOOK, state, Crafting['Goal'])
 
+    print(final_state)
+    # Search for a solution
+    #resulting_plan = search(graph, state, is_goal, 30, heuristic)
+    resulting_plan = None
     if resulting_plan:
         # Print resulting plan
         for state, action in resulting_plan:
