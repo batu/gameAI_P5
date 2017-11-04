@@ -1,7 +1,7 @@
 import json
 from collections import namedtuple, defaultdict, OrderedDict
 from timeit import default_timer as time
-from _heapq import heappop, heappush
+from _heapq import heappop, heappush, heapify
 
 Recipe = namedtuple('Recipe', ['name', 'check', 'effect', 'cost'])
 
@@ -84,7 +84,6 @@ def make_checker(rule):
 
     return check
 
-
 def make_effector(rule):
     # Implement a function that returns a function which transitions from state to
     # new_state given the rule. This code runs once, when the rules are constructed
@@ -120,25 +119,25 @@ def make_effector(rule):
 
     return effect
 
-
 def make_goal_checker(goal):
     # Implement a function that returns a function which checks if the state has
     # met the goal criteria. This code runs once, before the search is attempted.
 
     def is_goal(state):
-        print("Printing state in is_goal:{}".format(state))
-        print("Printing goal in is_goal:{}".format(goal))
+        #print("Printing state in is_goal:{}".format(state))
 
         for item, amount in goal.items():
             #print("Printing item:{}".format(item))
             #print("Printing amount :{}".format(amount))
-            if item in state.keys():
-                if amount <= state[item]:
-                    print("Goal reached!")
-                    return True
-        return False
+            if item not in state.keys():
+                return False
+            elif amount > state[item]:
+                return False
+        return True
 
     return is_goal
+
+
 
 
 def graph(state):
@@ -151,83 +150,70 @@ def graph(state):
             yield Node(r.name, r.effect(state), r.cost)
 
 
-#Takes a state, which is a the inventory.
 def heuristic(state): #take goal here.
 
-    # check what is the maximum amount of items required to craft another item. (I think it is 6)
-    # cutoff_treshold = 6
-    # if any item in the goal state.amount is > cutoff_treshold.]
-    # cutoff_treshold = amount
-
-    # returnning is a number. 999999999999999999999
-
-    # Implement your heuristic here!
-    #print("In heuristic.")
     return 0
 
 def search(graph, state, is_goal, limit, heuristic):
 
-    start_time = time()
-    path = []
-    queue = []
-    closed_set = []
+        start_time = time()
+        queue = []
+        closed_set = []
 
-    current_state = state
-    current_node = Node("Initial inventory.", current_state, 0)
-    init_node = current_node
+        current_state = state
+        current_node = Node("Initial inventory.", current_state, 0)
+        init_node = current_node
 
-    distances = {}
-    distances[current_node] = 0
+        distances = {}
+        distances[current_node] = 0
 
-    # The dictionary that will store the backpointers
-    backpointers = {}
-    backpointers[current_node] = None
+        # The dictionary that will store the backpointers
+        backpointers = {}
+        backpointers[current_node] = None
 
+        for state_node in graph(current_state):
+            heappush(queue, (state_node.cost, state_node))
+            #print("Printing rule in search: {}".format(recipe))
 
-    for state_node in graph(current_state):
-        queue.append(state_node)
-        print("Printing rule in search: {}".format(recipe))
+        # Implement your search here! Use your heuristic here!
+        # When you find a path to the goal return a list of tuples [(state, action)]
+        # representing the path. Each element (tuple) of the list represents a state
+        # in the path and the action that took you to this state
+        #print("Printing the state: {}".format(state))
+        #print("Printing the graph: {}".format(graph))
+        while time() - start_time < limit and queue:
 
-    # Implement your search here! Use your heuristic here!
-    # When you find a path to the goal return a list of tuples [(state, action)]
-    # representing the path. Each element (tuple) of the list represents a state
-    # in the path and the action that took you to this state
-    #print("Printing the state: {}".format(state))
-    #print("Printing the graph: {}".format(graph))
-    while time() - start_time < limit and queue:
+            if is_goal(current_state):
+                path = reconstruct_path(init_node, backpointers, current_node)
+                return path
 
-        if is_goal(current_state):
-            path = reconstruct_path(init_node, backpointers, current_node)
-            return path
+            cost_, current_node = heappop(queue)
+            current_state = current_node.state
+            closed_set.append(current_node)
 
-        current_node = heappop(queue)
-        current_state = current_node.state
-        closed_set.append(current_node)
+            for child_node in graph(current_state):
 
-        for child_node in graph(current_state):
+                #Lets be safe.
+                if child_node in closed_set:
+                    continue
 
-            #Lets be safe.
-            if child_node in closed_set:
-                continue
+                if child_node not in queue:
+                    heappush(queue, (child_node.cost, child_node))
 
-            if child_node not in queue:
-                queue.append(child_node)
+                tentative_score = current_node.cost + child_node.cost + heuristic(current_state)
+                if child_node not in distances or tentative_score <= distances[child_node]:
+                    distances[child_node] = tentative_score
+                    heappush(queue, (tentative_score, child_node))
+                    heapify(queue)
 
+                backpointers[child_node] = current_node
 
-            tentative_score = current_node.cost + child_node.cost + heuristic(state)
-            if child_node not in distances or tentative_score <= distances[child_node]:
-                distances[child_node] = tentative_score
+            print("Printing current_state in search:{}".format(current_state))
 
-            backpointers[child_node] = current_node
-
-        print("Printing current_state in search:{}".format(current_state))
-
-
-    # Failed to find a path
-    print(time() - start_time, 'seconds.')
-    print("Failed to find a path from", state, 'within time limit.')
-    return None
-
+        # Failed to find a path
+        #print(time() - start_time, 'seconds.')
+        print("Failed to find a path from", state, 'within time limit in heuristic.')
+        return None
 
 def reconstruct_path(init_node, cameFrom, current_node):
     total_path = [(current_node.state, current_node.name)]
@@ -277,7 +263,8 @@ if __name__ == '__main__':
     state.update(Crafting['Initial'])
 
     # Search for a solution
-    resulting_plan = search(graph, state, is_goal, 30, heuristic)
+    print("Search has started with the goal {}".format(Crafting['Goal']))
+    resulting_plan = search(graph, state, is_goal, 5, heuristic)
 
     if resulting_plan:
         # Print resulting plan
