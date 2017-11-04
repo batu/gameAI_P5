@@ -11,11 +11,12 @@ REQUIRED_ITEMS = set()
 #A wrapper functino over effectors in the CookBookEntry representation
 #Helps with keeping track of what effector is linked to what and creates what etc.
 class EffectorWrapper():
-    def __init__(self, effector, name):
+    def __init__(self, effector, name, cost):
         self.effector = effector
         self.creates = name
         #There are some items that are catalysts that you only need one.
         self.required = False
+        self.cost = cost
 
     def __call__(self, *args, **kwargs):
         return self.effector(args[0])
@@ -25,13 +26,17 @@ class EffectorWrapper():
 
 # Node representation for A* to help readability
 class Node():
-    def __init__(self, name, state, cost):
+    def __init__(self, name, state, cost, effect = None):
         self.name = name
         self.state = state
         self.cost = cost
+        self.effect = effect
 
     def __lt__(self, other):
         return self.cost < other.cost
+
+    def __str__(self):
+        return "ChildNode name:{} and state{}".format(self.name, self.state)
 
 # A datastructure that keeps hold of lots of information regarding cookbook entries
 class CookBookEntry():
@@ -155,7 +160,7 @@ def walk_path(state, path, goal):
 
 # Creates a cook book entry.
 def create_cookbook_entry(name, recipe, rule):
-    newCookBookEntry = CookBookEntry(name, recipe.cost, EffectorWrapper(recipe.effect, name))
+    newCookBookEntry = CookBookEntry(name, recipe.cost, EffectorWrapper(recipe.effect, name, recipe.cost))
     #newCookBookEntry = CookBookEntry(name, recipe.cost, recipe.effect)
 
     if "Requires" in rule.keys():
@@ -270,7 +275,8 @@ def relaxed_graph(state):
     # to the given state, and the cost for the rule.
     for r in all_recipes:
         if r.check(state):
-            yield Node(r.name, r.relaxed_effect(state), r.cost)
+            effector_wrapper = EffectorWrapper(r.relaxed_effect, r.name, r.cost)
+            yield Node(r.name, r.relaxed_effect(state), r.cost, r.relaxed_effect, effector_wrapper)
 
 def relaxed_search(graph, state, is_goal, limit):
 
@@ -360,6 +366,7 @@ def make_checker(rule):
     def check(state):
         # This code is called by graph(state) and runs millions of times.
         # Tip: Do something with rule['Consumes'] and rule['Requires'].
+
         consumes = None
         requires = None
         if "Consumes" in rule:
@@ -379,7 +386,7 @@ def make_checker(rule):
         # same as above
         if requires:
             for required in requires:
-                if not (required not in state):
+                if state[required] < 1:
                     return False
 
         #Reaching here means we have all of what we need
@@ -429,7 +436,6 @@ def make_goal_checker(goal):
     def is_goal(state):
         #print("Printing state in is_goal:{}".format(state))
         #print("Printing goal in is_goal:{}".format(goal))
-
         for item, amount in goal.items():
             #print("Printing item:{}".format(item))
             #print("Printing amount :{}".format(amount))
@@ -446,10 +452,12 @@ def graph(state):
     # If a rule is valid, it returns the rule's name, the resulting state after application
 
     # to the given state, and the cost for the rule.
+    all_nodes = []
     for r in all_recipes:
         if r.check(state):
-            yield Node(r.name, r.effect(state), r.cost)
-
+            effector_wrapper = EffectorWrapper(r.relaxed_effect, r.name, r.cost)
+            all_nodes.append(Node(r.name, r.effect(state), r.cost, effector_wrapper))
+    return all_nodes
 #Takes a state, which is a the inventory.
 def heuristic(state, goal): #take goal here.
     for product in state.keys():
@@ -460,6 +468,9 @@ def heuristic(state, goal): #take goal here.
     return 0
 
 def search(graph, state, is_goal, limit, heuristic, goal):
+
+        if is_goal(state):
+            return []
 
         start_time = time()
         queue = []
@@ -497,7 +508,6 @@ def search(graph, state, is_goal, limit, heuristic, goal):
             closed_set.append(current_node)
 
             for child_node in graph(current_state):
-
                 #Lets be safe.
                 if child_node in closed_set:
                     continue
@@ -520,11 +530,11 @@ def search(graph, state, is_goal, limit, heuristic, goal):
         return None
 
 def reconstruct_path(init_node, cameFrom, current_node):
-    total_path = [(current_node.state, current_node.name)]
+    total_path = [(current_node.state, current_node.effect)]
     while current_node in cameFrom.keys():
         current_node = cameFrom[current_node]
-        total_path.append((current_node.state, current_node.name))
-    total_path.append((init_node.state,init_node.name))
+        total_path.append((current_node.state, current_node.effect))
+    total_path.append((init_node.state, init_node.effect))
     return total_path
 
 
@@ -587,6 +597,9 @@ if __name__ == '__main__':
     #resulting_plan = None
     if resulting_plan:
         # Print resulting plan
+        total_cost = 0;
         for state, action in resulting_plan:
+            if action: total_cost += action.cost
             print('\t',state)
             print(action)
+        print("The path had {} elements with {} cost".format(len(resulting_plan) - 1, total_cost ))

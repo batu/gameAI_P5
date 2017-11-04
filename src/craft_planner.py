@@ -73,10 +73,10 @@ def make_checker(rule):
                 if not (consumed in state and state[consumed] >= amount):
                     return False
 
-        # same as above
+
         if requires:
             for required in requires:
-                if not (required not in state):
+                if state[required] < 1:
                     return False
 
         #Reaching here means we have all of what we need
@@ -225,7 +225,6 @@ def reconstruct_path(init_node, cameFrom, current_node):
 
 
 
-
 # The json file designates the initial state, and the goals.
 if __name__ == '__main__':
     with open('crafting.json') as f:
@@ -266,8 +265,12 @@ if __name__ == '__main__':
     print("Search has started with the goal {}".format(Crafting['Goal']))
     resulting_plan = search(graph, state, is_goal, 5, heuristic)
 
+
     if resulting_plan:
         # Print resulting plan
+        total_cost = 0
+
         for state, action in resulting_plan:
             print('\t',state)
             print(action)
+        print("The path had {} elements.".format(len(resulting_plan)))
