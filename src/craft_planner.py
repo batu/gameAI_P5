@@ -73,7 +73,6 @@ def make_checker(rule):
                 if not (consumed in state and state[consumed] >= amount):
                     return False
 
-
         if requires:
             for required in requires:
                 if state[required] < 1:
@@ -136,8 +135,6 @@ def make_goal_checker(goal):
         return True
 
     return is_goal
-
-
 
 
 def graph(state):

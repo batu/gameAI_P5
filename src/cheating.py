@@ -7,6 +7,7 @@ from math import inf
 Recipe = namedtuple('Recipe', ['name', 'check', 'effect', 'relaxed_effect', 'cost'])
 
 REQUIRED_ITEMS = set()
+name_to_produces = {}
 
 #A wrapper functino over effectors in the CookBookEntry representation
 #Helps with keeping track of what effector is linked to what and creates what etc.
@@ -201,6 +202,9 @@ def learn_shortest_paths(cook_book, goal):
     # If you know how to make the sub parts, you know how to make yourself by adding
     #your own active effector to the list of paths that is contained in the subparts
     # No you know how to get to the goal
+
+    # Unfortunately currently bugged as it doesnt take into consideration the time factor.
+    # I feel my work on this spread too far away from the spirit of the assignment so I stopped.
     def learn(goal):
         goal_entry = next((entry for entry in cook_book if entry.ProductName == goal ), None)
         while not goal_entry.path:
@@ -219,7 +223,6 @@ def learn_shortest_paths(cook_book, goal):
                         #print("Learning path in shortest_path:{}".format(learning_path))
                         for needed in needed_list:
                             needed_entry = next((entry for entry in cook_book if entry.ProductName == needed ), None)
-
                             # If you already started learning the goal you dont need to start again.
                             if not needed_entry.actively_learned:
                                 needed_entry.actively_learned = True
@@ -235,14 +238,265 @@ def learn_shortest_paths(cook_book, goal):
         learn(goal)
     print("Learning complete.\n")
     return
+
+def composite_goal(cook_book, goals):
+    learn_list = []
+    for goal_key in goals.keys():
+        for entry in cook_book:
+            if entry.ProductName == goal_key:
+                learn_list.append()
+                return
+
+def learn_from_search(cook_book, goal):
+    return
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
 ################# END OF LEARNING RELATED FUNCTIONS #######################
 #############################################################################
 
 
 #############################################################################
+############ BI DIRECTIONAL A* RELATED FUNCTIONS ############################
+#vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv#
+
+def backwards_graph(state, all_states):
+    # Iterates through all recipes/rules, checking which are valid in the given state.
+    # If a rule is valid, it returns the rule's name, the resulting state after application
+
+    # to the given state, and the cost for the rule.
+    all_nodes = []
+    for r in all_backwards_recipes:
+        if r.check(state):
+            # This ensure we dont go through duplicate paths.
+            if r.effect(state) in all_states:
+                continue
+            all_states.add(r.effect(state))
+            effector_wrapper = EffectorWrapper(r.effect, r.name, r.cost)
+            all_nodes.append(Node(r.name, r.effect(state), r.cost, effector_wrapper))
+    return all_nodes
+
+def make_backwards_checker(rule):
+    # Implement a function that returns a function to determine whether a state meets a
+    # rule's requirements. This code runs once, when the rules are constructed before
+    # the search is attempted.
+
+    #print("Printing rule: {}".format(rule))
+    #{'Produces': {'stone_axe': 1}, 'Requires': {'bench': True}, 'Consumes': {'cobble': 3, 'stick': 2}, 'Time': 1}
+    #The checker’s role is to assess whether a crafting recipe is valid in a given state.
+    #State is the stuff you have.
+
+    #{'bench': True}
+    #{'plank': 3, 'stick': 2}
+    def backwards_check(state):
+        # This code is called by graph(state) and runs millions of times.
+        # Tip: Do something with rule['Consumes'] and rule['Requires'].
+
+        requires = None
+        produces = None
+        if "Requires" in rule:
+            requires = rule["Requires"]
+        if "Produces" in rule:
+            produces = rule["Produces"]
+
+
+        #if it consumes any items
+        if produces:
+            for produced, amount in produces.items():
+                if produced not in state:
+                    return False
+                if not (amount <= state[produced]):
+                    return False
+        # same as above
+
+        if requires:
+            for required in requires:
+                if not required in state:
+                    return False
+                if state[required] < 1:
+                    return False
+
+
+        #Reaching here means we have all of what we need
+        return True
+
+    return backwards_check
+
+def make_backwards_effector(rule):
+    # Implement a function that returns a function which transitions from state to
+    # new_state given the rule. This code runs once, when the rules are constructed
+    # before the search is attempted.
+
+    #The effector’s function is
+    #to return the state resulting from applying the rule to a given state.
+    def backwards_effect(state):
+        # This code is called by graph(state) and runs millions of times
+        # Tip: Do something with rule['Produces'] and rule['Consumes'].
+
+        #Copy the state.
+        next_state = state.copy()
+        consumes_list = None
+        produces_list = None
+        if "Consumes" in rule:
+            consumes_list = rule["Consumes"].items()
+        if "Produces" in rule:
+            produces_list = rule["Produces"].items()
+
+        #Update the sate by consuming the amount of items
+        if consumes_list:
+            for consumed, amount in consumes_list:
+                if consumed in next_state.keys():
+                    next_state[consumed] += amount
+                else:
+                    next_state[consumed] = amount
+
+        #add the amount of items produced to state.
+        if produces_list:
+            for produced, amount in produces_list:
+                next_state[produced] -= amount
+
+        return next_state
+
+    return backwards_effect
+
+def bi_goal(state_1, state_2):
+    s_1 = {key: value for key, value in state_1.items()
+             if value != 0}
+    s_2 = {key: value for key, value in state_2.items()
+             if value != 0}
+
+    if s_1 == s_2:
+        return True
+    return False
+"""
+    for item, amount in s_1.items():
+            #print("Printing item:{}".format(item))
+            #print("Printing amount :{}".format(amount))
+        if item not in s_2.keys():
+            return False
+        elif amount > s_2[item]:
+            return False
+"""
+
+def bi_search(graph, state, is_goal, limit, heuristic, goal):
+
+        if is_goal(state):
+            return []
+
+        start_time = time()
+        queue = []
+        closed_set = []
+
+        current_state = state
+        current_node = Node("Initial inventory.", current_state, 0)
+
+        current_backwards_state = State({key: goal[key] for key in goal})
+        current_backwards_node = Node("Goal State.", current_backwards_state, 0)
+
+
+        init_node = current_node
+
+        distances = {}
+        distances[current_node] = 0
+        distances[current_backwards_node] = 0
+
+        all_states = set()
+        all_states.add(current_state)
+
+        all_backwards_states = set()
+        all_backwards_states.add(current_backwards_state)
+
+        # The dictionary that will store the backpointers
+        backpointers = {}
+        backpointers[current_node] = None
+        backpointers[current_backwards_node] = None
+
+        heappush(queue, (current_backwards_node.cost, current_backwards_node, False))
+        heappush(queue, (current_node.cost, current_node, True))
+
+
+        # Implement your search here! Use your heuristic here!
+        # When you find a path to the goal return a list of tuples [(state, action)]
+        # representing the path. Each element (tuple) of the list represents a state
+        # in the path and the action that took you to this state
+        #print("Printing the state: {}".format(state))
+        #print("Printing the graph: {}".format(graph))
+        while time() - start_time < limit and queue:
+
+            if bi_goal(current_state, current_backwards_state):
+                backwards_path = reconstruct_path(goal, backpointers, current_backwards_node)
+                path = reconstruct_path(init_node, backpointers, current_node)
+                backwards_path.reverse()
+                path += backwards_path
+                return path
+
+            #for cost, node in queue:
+            #    print("Name: {}, weight:{}".format(node.name, cost))
+            #print()
+
+            cost, node, forward = heappop(queue)
+
+
+            if forward:
+                current_node = node
+                current_state = node.state
+                closed_set.append(current_node)
+                for child_node in graph(current_state, all_states):
+                    if child_node in closed_set:
+                        continue
+                    child_node_cost = child_node.cost
+                    current_node_cost = distances[current_node]
+                    tentative_score = current_node_cost + child_node_cost + heuristic(child_node, current_backwards_state)
+                    if child_node not in distances or tentative_score <= distances[child_node]:
+                        distances[child_node] = tentative_score
+                        if tentative_score == inf:
+                            try:
+                                queue.remove(child_node)
+                            except ValueError:
+                                continue
+                        else:
+                            heappush(queue, (tentative_score, child_node, True))
+                    backpointers[child_node] = current_node
+                print("Printing current_state in search forward:{}".format(current_state))
+            else:
+                current_backwards_node = node
+                current_backwards_state = node.state
+                closed_set.append(current_backwards_node)
+                for child_node in backwards_graph(current_backwards_state, all_backwards_states):
+                    if child_node in closed_set:
+                        continue
+                    child_node_cost = child_node.cost
+                    current_backwards_node_cost = distances[current_backwards_node]
+                    tentative_score = current_backwards_node_cost + child_node_cost #+ heuristic(current_backwards_node, current_state)
+                    if child_node not in distances or tentative_score <= distances[child_node]:
+                        distances[child_node] = tentative_score
+                        if tentative_score == inf:
+                            try:
+                                queue.remove(child_node)
+                            except ValueError:
+                                print("value error")
+                                continue
+                        else:
+                            heappush(queue, (tentative_score, child_node, False))
+                    backpointers[child_node] = current_node
+                print("Printing current_state in search backwards:{}".format(current_backwards_state))
+
+        # Failed to find a path
+        #print(time() - start_time, 'seconds.')
+        print("Failed to find a path from", state, 'within time limit in heuristic.')
+        return None
+
+
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
+############# END BI DIRECTIONAL A* RELATED FUNCTIONS #######################
+#############################################################################
+
+
+
+#############################################################################
 #################RELAXATION RELATED FUNCTIONS ###############################
 #vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv#
+# In the end the relaxed search heuristic spent too much time to be useful as a heuristic.
+# It might be useful to try it when you decide that the target is close to the
+
 def make_relaxed_effector(rule):
     # Implement a function that returns a function which transitions from state to
     # new_state given the rule. This code runs once, when the rules are constructed
@@ -350,6 +604,9 @@ def relaxation_heuristic(state, goal, limit = 0.1): #take goal here.
 ################# END OF RELAXATION RELATED FUNCTIONS #######################
 #############################################################################
 
+#############################################################################
+############## VANILLA SEARCH RELATED FUNCTIONS #############################
+#vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv#
 
 def make_checker(rule):
     # Implement a function that returns a function to determine whether a state meets a
@@ -447,7 +704,7 @@ def make_goal_checker(goal):
 
     return is_goal
 
-def graph(state):
+def graph(state, all_states):
     # Iterates through all recipes/rules, checking which are valid in the given state.
     # If a rule is valid, it returns the rule's name, the resulting state after application
 
@@ -455,15 +712,25 @@ def graph(state):
     all_nodes = []
     for r in all_recipes:
         if r.check(state):
-            effector_wrapper = EffectorWrapper(r.relaxed_effect, r.name, r.cost)
+            # This ensure we dont go through duplicate paths.
+            if r.effect(state) in all_states:
+                continue
+            all_states.add(r.effect(state))
+            effector_wrapper = EffectorWrapper(r.effect, r.name, r.cost)
             all_nodes.append(Node(r.name, r.effect(state), r.cost, effector_wrapper))
     return all_nodes
+
 #Takes a state, which is a the inventory.
-def heuristic(state, goal): #take goal here.
+def heuristic(child_node, goal): #take goal here.
+    state = child_node.state
+    name = child_node.name
+    #produces = name_to_produces[child_node.name]
     for product in state.keys():
-        if product not in goal.keys() and state[product] >= 1 and product in REQUIRED_ITEMS:
+        if product not in goal.keys() and state[product] > 1 and product in REQUIRED_ITEMS:
+            #print("Triggered required item heuristic.")
             return inf
         if product not in goal.keys() and state[product] > 8:
+            #print("Triggered more than needed heuristic.")
             return inf
     return 0
 
@@ -483,13 +750,14 @@ def search(graph, state, is_goal, limit, heuristic, goal):
         distances = {}
         distances[current_node] = 0
 
+        all_states = set()
+        all_states.add(current_state)
+
         # The dictionary that will store the backpointers
         backpointers = {}
         backpointers[current_node] = None
 
-        for state_node in graph(current_state):
-            heappush(queue, (state_node.cost, state_node))
-            #print("Printing rule in search: {}".format(recipe))
+        heappush(queue, (current_node.cost, current_node))
 
         # Implement your search here! Use your heuristic here!
         # When you find a path to the goal return a list of tuples [(state, action)]
@@ -501,31 +769,43 @@ def search(graph, state, is_goal, limit, heuristic, goal):
 
             if is_goal(current_state):
                 path = reconstruct_path(init_node, backpointers, current_node)
+                print(time() - start_time)
                 return path
+
+
+            #for cost, node in queue:
+            #    print("Name: {}, weight:{}".format(node.name, cost))
+            #print()
 
             cost, current_node = heappop(queue)
             current_state = current_node.state
+
             closed_set.append(current_node)
 
-            for child_node in graph(current_state):
+            for child_node in graph(current_state, all_states):
                 #Lets be safe.
                 if child_node in closed_set:
                     continue
 
-                if child_node not in queue:
-                    heappush(queue, (child_node.cost, child_node))
-
-                tentative_score = current_node.cost + child_node.cost + heuristic(current_state, goal)
+                child_node_cost = child_node.cost
+                current_node_cost = distances[current_node]
+                tentative_score = current_node_cost + child_node_cost + heuristic(child_node, goal)
                 if child_node not in distances or tentative_score <= distances[child_node]:
                     distances[child_node] = tentative_score
-                    heappush(queue, (child_node.cost, child_node))
+                    if tentative_score == inf:
+                        try:
+                            queue.remove(child_node)
+                        except ValueError:
+                            continue
+                    else:
+                        heappush(queue, (tentative_score, child_node))
 
                 backpointers[child_node] = current_node
 
-            #print("Printing current_state in search:{}".format(current_state))
+            print("Printing current_state in search:{}".format(current_state))
 
         # Failed to find a path
-        #print(time() - start_time, 'seconds.')
+        print(time() - start_time, 'seconds.')
         print("Failed to find a path from", state, 'within time limit in heuristic.')
         return None
 
@@ -533,9 +813,13 @@ def reconstruct_path(init_node, cameFrom, current_node):
     total_path = [(current_node.state, current_node.effect)]
     while current_node in cameFrom.keys():
         current_node = cameFrom[current_node]
-        total_path.append((current_node.state, current_node.effect))
-    total_path.append((init_node.state, init_node.effect))
+        if(current_node):
+            total_path.append((current_node.state, current_node.effect))
     return total_path
+
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
+################# VANILLA SEARCH RELATED FUNCTIONS ##########################
+#############################################################################
 
 
 # The json file designates the initial state, and the goals.
@@ -557,6 +841,7 @@ if __name__ == '__main__':
 
     # Build rules
     all_recipes = []
+    all_backwards_recipes = []
     #count = 0
     #Name of the item
     #The recipe (produces, requires, consumes, time
@@ -569,6 +854,13 @@ if __name__ == '__main__':
         relaxed_effector = make_relaxed_effector(rule)
         recipe = Recipe(name, checker, effector, relaxed_effector, rule['Time'])
         all_recipes.append(recipe)
+
+        b_checker = make_backwards_checker(rule)
+        b_effector = make_backwards_effector(rule)
+        b_recipe = Recipe(name, b_checker, b_effector, relaxed_effector, rule['Time'])
+        all_backwards_recipes.append(b_recipe)
+
+        name_to_produces[name] = list(rule["Produces"].keys())[0]
 
         newCookBookEntry = create_cookbook_entry(name, recipe, rule)
         COOK_BOOK.append(newCookBookEntry)
@@ -589,11 +881,18 @@ if __name__ == '__main__':
     state.update(Crafting['Initial'])
 
     print("This is the current goal: {}".format(Crafting['Goal']))
-    learn_shortest_paths(COOK_BOOK, Crafting['Goal'])
+    #learn_shortest_paths(COOK_BOOK, Crafting['Goal'])
     #final_state = use_paths_get_goal(COOK_BOOK, state, Crafting['Goal'])
-
+    """
+    for entry in COOK_BOOK:
+        print(entry)
+        for step in entry.path:
+            print(step)
+        print()
+    """
     # Search for a solution
-    resulting_plan = search(graph, state, is_goal, 5, heuristic, Crafting['Goal'])
+    resulting_plan = search(graph, state, is_goal, 300, heuristic, Crafting['Goal'])
+    #resulting_plan = bi_search(graph, state, is_goal, 3000, heuristic, Crafting['Goal'])
     #resulting_plan = None
     if resulting_plan:
         # Print resulting plan
