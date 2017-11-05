@@ -6,18 +6,19 @@ from math import inf
 
 Recipe = namedtuple('Recipe', ['name', 'check', 'effect', 'relaxed_effect', 'cost'])
 
-REQUIRED_ITEMS = set()
-name_to_produces = {}
+
 
 #A wrapper functino over effectors in the CookBookEntry representation
 #Helps with keeping track of what effector is linked to what and creates what etc.
 class EffectorWrapper():
-    def __init__(self, effector, name, cost):
+    def __init__(self, effector, creates, cost, recipe_name):
         self.effector = effector
-        self.creates = name
+        self.creates = creates
+        self.recipe_name = recipe_name
         #There are some items that are catalysts that you only need one.
         self.required = False
         self.cost = cost
+        self.creates_dict = 0
 
     def __call__(self, *args, **kwargs):
         return self.effector(args[0])
@@ -32,6 +33,7 @@ class Node():
         self.state = state
         self.cost = cost
         self.effect = effect
+        self.total_cost = 0
 
     def __lt__(self, other):
         return self.cost < other.cost
@@ -42,8 +44,8 @@ class Node():
 # A datastructure that keeps hold of lots of information regarding cookbook entries
 class CookBookEntry():
 
-    def __init__(self, name, cost, effector, requires = None, consumes = None, produces = None):
-        self.name = name
+    def __init__(self, recipe_name, cost, effector, requires = None, consumes = None, produces = None):
+        self.name = recipe_name
         self.requires = requires
         self.consumes = consumes
         self.produces = produces
@@ -70,6 +72,7 @@ class CookBookEntry():
     def updateProductName(self):
         self.ProductName = list(self.produces.keys())[0]
         self.effector.creates = self.ProductName
+        self.effector.creates_dict = self.produces
 
     #Updates the path by taking in the path that is necesary to get to state where
     # you can add its own effector and get to the result
@@ -160,8 +163,8 @@ def walk_path(state, path, goal):
     return current_state
 
 # Creates a cook book entry.
-def create_cookbook_entry(name, recipe, rule):
-    newCookBookEntry = CookBookEntry(name, recipe.cost, EffectorWrapper(recipe.effect, name, recipe.cost))
+def create_cookbook_entry(recipe_name, recipe, rule):
+    newCookBookEntry = CookBookEntry(recipe_name, recipe.cost, EffectorWrapper(recipe.effect, recipe_name, recipe.cost, recipe_name))
     #newCookBookEntry = CookBookEntry(name, recipe.cost, recipe.effect)
 
     if "Requires" in rule.keys():
@@ -267,11 +270,15 @@ def backwards_graph(state, all_states):
     for r in all_backwards_recipes:
         if r.check(state):
             # This ensure we dont go through duplicate paths.
-            if r.effect(state) in all_states:
+
+            new_state = r.effect(state)
+
+            if (new_state, new_state.total_time_cost) in all_states:
                 continue
-            all_states.add(r.effect(state))
-            effector_wrapper = EffectorWrapper(r.effect, r.name, r.cost)
-            all_nodes.append(Node(r.name, r.effect(state), r.cost, effector_wrapper))
+            all_states.add(new_state, new_state.total_time_cost)
+
+            effector_wrapper = EffectorWrapper(r.effect, r.name, r.cost, r.name)
+            all_nodes.append(Node(r.name, new_state, r.cost, effector_wrapper))
     return all_nodes
 
 def make_backwards_checker(rule):
@@ -362,7 +369,6 @@ def make_backwards_effector(rule):
                 next_state[produced] -= amount
 
         return next_state
-
     return backwards_effect
 
 def reached_ground_zero(state):
@@ -688,6 +694,13 @@ def make_effector(rule):
 
         #Copy the state.
         next_state = state.copy()
+        try:
+            next_state.total_time_cost += rule["Time"]
+            raise
+        except AttributeError:
+
+            next_state.total_time_cost = rule["Time"]
+
         consumes_list = None
         produces_list = None
         if "Consumes" in rule:
@@ -727,34 +740,123 @@ def make_goal_checker(goal):
 
     return is_goal
 
-def graph(state, all_states):
+def graph(current_node, all_states):
     # Iterates through all recipes/rules, checking which are valid in the given state.
     # If a rule is valid, it returns the rule's name, the resulting state after application
 
     # to the given state, and the cost for the rule.
+    state = current_node.state
     all_nodes = []
     for r in all_recipes:
         if r.check(state):
             # This ensure we dont go through duplicate paths.
-            if r.effect(state) in all_states:
+            new_state = r.effect(state)
+            if new_state in all_states.keys():
+                #print("State cost in allstates: {}\nState cost in current_node:{}".format(all_states[new_state], current_node.total_cost))
                 continue
-            all_states.add(r.effect(state))
-            effector_wrapper = EffectorWrapper(r.effect, r.name, r.cost)
+                if all_states[new_state] >= current_node.total_cost:
+                    continue
+            all_states[r.effect(state)] = current_node.total_cost
+            effector_wrapper = EffectorWrapper(r.effect, r.name, r.cost, r.name)
             all_nodes.append(Node(r.name, r.effect(state), r.cost, effector_wrapper))
     return all_nodes
 
+def invalidate_low_tech(current_state, child_action):
+
+    product = list(name_to_produces[child_action].keys())[0]
+
+    #if time permits will automatically generate this.
+    action_priority_list = {"punch for wood": 0, "wooden_axe for wood":1, "stone_axe for wood":2,"iron_axe for wood":3,
+                     "stone_pickaxe for ore":1, "iron_pickaxe for ore":2,
+                     "wooden_pickaxe for coal":0, "stone_pickaxe for coal":1, "iron_pickaxe for coal":2,
+                     "wooden_pickaxe for cobble":0,"stone_pickaxe for cobble":1, "iron_pickaxe for cobble":2,
+                     }
+    try:
+        action_priority = action_priority_list[child_action]
+    except:
+        return False
+
+
+    axe_priority_list = {"wooden_axe":1, "stone_axe":2, "iron_axe":3}
+    pick_axe_priority_list = {"wooden_pickaxe":0,"stone_pickaxe":1, "iron_pickaxe":2}
+
+    available_priority = 0
+    if product == "wood":
+        for equipment, priority in axe_priority_list.items():
+            if equipment in current_state.keys() and current_state[equipment] > 0:
+                available_priority = priority if priority > available_priority else available_priority
+
+
+    #elif product in {"ore", "coal", "cobble"}:
+    elif product in {"ore"}:
+        for equipment, priority in pick_axe_priority_list.items():
+            if equipment in current_state.keys() and current_state[equipment] > 0:
+                available_priority = priority if priority > available_priority else available_priority
+
+    if action_priority <  available_priority:
+        #print("Current state:{}\nDesired action: {}".format(current_state, child_action))
+        return True
+    return False
+
+def prune_unnecesary(queue, goal):
+    copy_queue = queue.copy()
+    print("Found one goal, pruning started")
+    counter = 0;
+    for _, node in copy_queue:
+        for goal_element in goal:
+            if node.state[goal_element] == 0:
+                try:
+                    queue.remove((_, node))
+                except:
+                    counter += 1
+                    pass
+    print("Pruning ended with {} exceptions.")
+    return
+
+
+
 #Takes a state, which is a the inventory.
-def heuristic(child_node, goal): #take goal here.
-    state = child_node.state
-    name = child_node.name
-    #produces = name_to_produces[child_node.name]
-    for product in state.keys():
-        if product not in goal.keys() and state[product] > 1 and product in REQUIRED_ITEMS:
-            #print("Triggered required item heuristic.")
+def heuristic(current_state, child_node, goal, queue): #take goal here.
+    child_state = child_node.state
+    action_name = child_node.name
+    produces = name_to_produces[action_name]
+
+    #print("\nCurrent state: {} \n Child state:{}".format(current_state, child_state))
+    if invalidate_low_tech(current_state, action_name):
+        return inf
+
+    for product in produces:
+        if product in goal.keys() and child_state[product] > goal[product]:
             return inf
-        if product not in goal.keys() and state[product] > 8:
-            #print("Triggered more than needed heuristic.")
+
+        if product in goal.keys():
+            #print("Printing product:{}\nChild state:{}\nGoal:{}".format(product,child_state,goal))
+            prune_unnecesary(queue, goal)
+            return 0
+
+        #If you already have an REQUIRED item, dont do child_state of it
+        if product not in goal.keys() and child_state[product] > 1 and product in REQUIRED_ITEMS:
+            #print("Triggered required item heuristic for {}".format(product))
             return inf
+
+        if product not in goal.keys() and (product in max_used_count.keys() and current_state[product] >= max_used_count[product]):
+            #print("Triggered more than needed heuristic for {} with current amount \
+#{} with effect {}".format(product, current_state[product], child_node.effect.recipe_name))
+            return inf
+
+        if product == "cobble":
+            #If you made all the stone items you need, you dont want more cobble
+            stone_items = {"stone_pickaxe", "furnace", "stone_axe"}
+            if all(current_state[stone_key] != 0 for stone_key in stone_items ):
+                #print("No more cobble needed, ever.")
+                return inf
+
+            if current_state["furnace"] != 0 and child_node.state["cobble"] > 3:
+                return inf
+
+        if product not in goal.keys() and product in leaf_items:
+            return inf
+
     return 0
 
 def search(graph, state, is_goal, limit, heuristic, goal):
@@ -773,13 +875,14 @@ def search(graph, state, is_goal, limit, heuristic, goal):
         distances = {}
         distances[current_node] = 0
 
-        all_states = set()
-        all_states.add(current_state)
+        all_states = {}
+        all_states[current_state] = 0
 
         # The dictionary that will store the backpointers
         backpointers = {}
         backpointers[current_node] = None
 
+        current_node.total_cost = current_node.cost
         heappush(queue, (current_node.cost, current_node))
 
         # Implement your search here! Use your heuristic here!
@@ -795,24 +898,23 @@ def search(graph, state, is_goal, limit, heuristic, goal):
                 print(time() - start_time)
                 return path
 
-
             #for cost, node in queue:
             #    print("Name: {}, weight:{}".format(node.name, cost))
             #print()
+
 
             cost, current_node = heappop(queue)
             current_state = current_node.state
 
             closed_set.append(current_node)
 
-            for child_node in graph(current_state, all_states):
+            for child_node in graph(current_node, all_states):
                 #Lets be safe.
                 if child_node in closed_set:
                     continue
-
                 child_node_cost = child_node.cost
                 current_node_cost = distances[current_node]
-                tentative_score = current_node_cost + child_node_cost + heuristic(child_node, goal)
+                tentative_score = current_node_cost + child_node_cost + heuristic(current_state, child_node, goal, queue)
                 if child_node not in distances or tentative_score <= distances[child_node]:
                     distances[child_node] = tentative_score
                     if tentative_score == inf:
@@ -821,11 +923,12 @@ def search(graph, state, is_goal, limit, heuristic, goal):
                         except ValueError:
                             continue
                     else:
+                        child_node.total_cost = tentative_score
                         heappush(queue, (tentative_score, child_node))
 
                 backpointers[child_node] = current_node
 
-            print("Printing current_state in search:{}".format(current_state))
+            #print("Printing current_state in search:{}".format(current_state))
 
         # Failed to find a path
         print(time() - start_time, 'seconds.')
@@ -850,7 +953,13 @@ if __name__ == '__main__':
     with open('crafting.json') as f:
         Crafting = json.load(f)
 
-    # # List of items that can be in your inventory:
+    REQUIRED_ITEMS = set()
+    name_to_produces = {}
+    name_to_requires = {}
+    #Due to time constraints this bunch is hand coded. If time permits, will update to automatic generation.
+    max_used_count = {"wood":1, "plank":4, "stick":2, "cobble":8, "coal":1, "ingot":6, "ore":1}
+    leaf_items = {"rail", "cart"}
+    # List of items that can be in your inventory:
     #print('All items:', Crafting['Items'])
     #
     # # List of items in your initial inventory with amounts:
@@ -871,21 +980,26 @@ if __name__ == '__main__':
     rules = {}
 
     COOK_BOOK = []
-    for name, rule in Crafting['Recipes'].items():
+    for recipe_name, rule in Crafting['Recipes'].items():
         checker = make_checker(rule)
         effector = make_effector(rule)
         relaxed_effector = make_relaxed_effector(rule)
-        recipe = Recipe(name, checker, effector, relaxed_effector, rule['Time'])
+        recipe = Recipe(recipe_name, checker, effector, relaxed_effector, rule['Time'])
         all_recipes.append(recipe)
 
         b_checker = make_backwards_checker(rule)
         b_effector = make_backwards_effector(rule)
-        b_recipe = Recipe(name, b_checker, b_effector, relaxed_effector, rule['Time'])
+        b_recipe = Recipe(recipe_name, b_checker, b_effector, relaxed_effector, rule['Time'])
         all_backwards_recipes.append(b_recipe)
 
-        name_to_produces[name] = list(rule["Produces"].keys())[0]
+        name_to_produces[recipe_name] = rule["Produces"]
+        try:
+            name_to_requires[recipe_name] = rule["Requires"]
+        except:
+            #print("This item doesnt require anything")
+            pass
 
-        newCookBookEntry = create_cookbook_entry(name, recipe, rule)
+        newCookBookEntry = create_cookbook_entry(recipe_name, recipe, rule)
         COOK_BOOK.append(newCookBookEntry)
 
         if isPrimitive(newCookBookEntry):
@@ -900,8 +1014,8 @@ if __name__ == '__main__':
     is_goal = make_goal_checker(Crafting['Goal'])
 
     # Initialize first state from initial inventory
-    state = State({key: 0 for key in Crafting['Items']})
-    state.update(Crafting['Initial'])
+    init_state = State({key: 0 for key in Crafting['Items']})
+    init_state.update(Crafting['Initial'])
 
     print("This is the current goal: {}".format(Crafting['Goal']))
     #learn_shortest_paths(COOK_BOOK, Crafting['Goal'])
@@ -914,8 +1028,8 @@ if __name__ == '__main__':
         print()
     """
     # Search for a solution
-    #resulting_plan = search(graph, state, is_goal, 300, heuristic, Crafting['Goal'])
-    resulting_plan = bi_search(graph, state, is_goal, 30, heuristic, Crafting['Goal'])
+    resulting_plan = search(graph, init_state, is_goal, 300, heuristic, Crafting['Goal'])
+    #resulting_plan = bi_search(graph, init_state, is_goal, 30, heuristic, Crafting['Goal'])
     #resulting_plan = None
     if resulting_plan:
         # Print resulting plan
