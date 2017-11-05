@@ -335,10 +335,14 @@ def make_backwards_effector(rule):
         next_state = state.copy()
         consumes_list = None
         produces_list = None
+        require_list = None
         if "Consumes" in rule:
             consumes_list = rule["Consumes"].items()
         if "Produces" in rule:
             produces_list = rule["Produces"].items()
+
+        if "Requires" in rule:
+            require_list = rule["Requires"].items()
 
         #Update the sate by consuming the amount of items
         if consumes_list:
@@ -348,6 +352,10 @@ def make_backwards_effector(rule):
                 else:
                     next_state[consumed] = amount
 
+        if require_list:
+            for reqired in require_list:
+                next_state[reqired] = 1
+
         #add the amount of items produced to state.
         if produces_list:
             for produced, amount in produces_list:
@@ -356,6 +364,13 @@ def make_backwards_effector(rule):
         return next_state
 
     return backwards_effect
+
+def reached_ground_zero(state):
+    s = {key: value for key, value in state.items()
+             if value != 0}
+
+    if s == {}:
+        return True
 
 def bi_goal(state_1, state_2):
     s_1 = {key: value for key, value in state_1.items()
@@ -436,6 +451,10 @@ def bi_search(graph, state, is_goal, limit, heuristic, goal):
 
 
             if forward:
+                if is_goal(current_state):
+                    print("REACHED THE GOAL")
+                    path = reconstruct_path(init_node, backpointers, current_node)
+                    return path
                 current_node = node
                 current_state = node.state
                 closed_set.append(current_node)
@@ -457,6 +476,10 @@ def bi_search(graph, state, is_goal, limit, heuristic, goal):
                     backpointers[child_node] = current_node
                 print("Printing current_state in search forward:{}".format(current_state))
             else:
+                if reached_ground_zero(current_backwards_state):
+                    print("REACHED GROUND ZERO")
+                    backwards_path = reconstruct_path(goal, backpointers, current_backwards_node)
+                    return backwards_path
                 current_backwards_node = node
                 current_backwards_state = node.state
                 closed_set.append(current_backwards_node)
@@ -891,8 +914,8 @@ if __name__ == '__main__':
         print()
     """
     # Search for a solution
-    resulting_plan = search(graph, state, is_goal, 300, heuristic, Crafting['Goal'])
-    #resulting_plan = bi_search(graph, state, is_goal, 3000, heuristic, Crafting['Goal'])
+    #resulting_plan = search(graph, state, is_goal, 300, heuristic, Crafting['Goal'])
+    resulting_plan = bi_search(graph, state, is_goal, 30, heuristic, Crafting['Goal'])
     #resulting_plan = None
     if resulting_plan:
         # Print resulting plan
