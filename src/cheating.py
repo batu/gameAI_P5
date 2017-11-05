@@ -6,8 +6,6 @@ from math import inf
 
 Recipe = namedtuple('Recipe', ['name', 'check', 'effect', 'relaxed_effect', 'cost'])
 
-
-
 #A wrapper functino over effectors in the CookBookEntry representation
 #Helps with keeping track of what effector is linked to what and creates what etc.
 class EffectorWrapper():
@@ -800,7 +798,7 @@ def invalidate_low_tech(current_state, child_action):
 
 def prune_unnecesary(queue, goal):
     copy_queue = queue.copy()
-    print("Found one goal, pruning started")
+    #print("Found one goal, pruning started")
     counter = 0;
     for _, node in copy_queue:
         for goal_element in goal:
@@ -810,9 +808,8 @@ def prune_unnecesary(queue, goal):
                 except:
                     counter += 1
                     pass
-    print("Pruning ended with {} exceptions.")
+    #print("Pruning ended with {} exceptions.")
     return
-
 
 
 #Takes a state, which is a the inventory.
@@ -826,7 +823,7 @@ def heuristic(current_state, child_node, goal, queue): #take goal here.
         return inf
 
     for product in produces:
-        if product in goal.keys() and child_state[product] > goal[product]:
+        if product in goal.keys() and child_state[product] > goal[product] * name_to_prodcutionstep[child_node.name]:
             return inf
 
         if product in goal.keys():
@@ -956,6 +953,8 @@ if __name__ == '__main__':
     REQUIRED_ITEMS = set()
     name_to_produces = {}
     name_to_requires = {}
+    name_to_prodcutionstep = {}
+
     #Due to time constraints this bunch is hand coded. If time permits, will update to automatic generation.
     max_used_count = {"wood":1, "plank":4, "stick":2, "cobble":8, "coal":1, "ingot":6, "ore":1}
     leaf_items = {"rail", "cart"}
@@ -993,6 +992,7 @@ if __name__ == '__main__':
         all_backwards_recipes.append(b_recipe)
 
         name_to_produces[recipe_name] = rule["Produces"]
+        name_to_prodcutionstep[recipe_name] = list(rule["Produces"].values())[0]
         try:
             name_to_requires[recipe_name] = rule["Requires"]
         except:
