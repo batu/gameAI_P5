@@ -1,0 +1,612 @@
+Spencer Smoot sssmoot
+Enrique Molina enmolina
+Batu Aytemiz baytemiz
+
+Maximum found:
+cart: 10
+rail: 80
+with 296 elements and 1003 cost, 8674 states.
+
+Note: This is really pushing the limits of the system. Given variance and other system specifications it might not find the path in a
+given time amount.
+For documentation purposes: https://ark.intel.com/products/75123/Intel-Core-i7-4770K-Processor-8M-Cache-up-to-3_90-GHz
+was the chip we used to run our tests.
+
+It is very possible that this is NOT THE OPTIMAL path. We acknowledge this and will this will be further discussed in the readme.
+
+The search algorithm explored 8674 states.
+This is the current goal: {'cart': 10, 'rail': 80}
+29.89017603299999
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'rail': 80, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft rail at bench effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 6, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'rail': 64, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft stick effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 64, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft rail at bench effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 6, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 48, 'stick': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft rail at bench effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 6, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 32, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft rail at bench effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 6, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 3, 'rail': 16, 'stick': 3, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft rail at bench effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 6, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 10, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 3, 'stick': 4, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft stick effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 5, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft plank effector.
+	 {'bench': 1, 'cart': 10, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 9, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 9, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 9, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 9, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 9, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 9, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 8, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 8, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 8, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 8, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 8, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 8, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 7, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 7, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 7, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 7, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 7, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 7, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 6, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 6, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 6, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 6, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 6, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 6, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 5, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 5, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 5, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 5, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 5, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 5, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 4, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 4, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 4, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 4, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 4, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 4, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 3, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 3, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 3, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 3, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 3, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 3, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 2, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 2, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 2, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 2, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 2, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 2, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 1, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 1, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 1, 'coal': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 2, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 1, 'coal': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'ingot': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'cart': 1, 'coal': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'cart': 1, 'furnace': 1, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft cart at bench effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 5, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a iron_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 4, 'iron_pickaxe': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 3, 'iron_pickaxe': 1, 'ore': 1, 'plank': 1, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a craft iron_pickaxe at bench effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 6, 'ore': 1, 'plank': 1, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wood': 1, 'wooden_pickaxe': 1}
+This is a stone_axe for wood effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 6, 'ore': 1, 'plank': 1, 'stick': 2, 'stone_axe': 1, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft stone_axe at bench effector.
+	 {'bench': 1, 'cobble': 3, 'furnace': 1, 'ingot': 6, 'ore': 1, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 2, 'furnace': 1, 'ingot': 6, 'ore': 1, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 1, 'furnace': 1, 'ingot': 6, 'ore': 1, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 6, 'ore': 1, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 6, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 5, 'ore': 1, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 5, 'ore': 1, 'plank': 1, 'stick': 4, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft stick effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 5, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 5, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 4, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 4, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 4, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 3, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 3, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 3, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 2, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 2, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 2, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ingot': 1, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 1, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'ingot': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a smelt ore in furnace effector.
+	 {'bench': 1, 'coal': 1, 'furnace': 1, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for coal effector.
+	 {'bench': 1, 'furnace': 1, 'ore': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for ore effector.
+	 {'bench': 1, 'furnace': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft furnace at bench effector.
+	 {'bench': 1, 'cobble': 8, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 7, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 6, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 5, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 4, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 3, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 2, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a stone_pickaxe for cobble effector.
+	 {'bench': 1, 'plank': 3, 'stone_pickaxe': 1, 'wooden_pickaxe': 1}
+This is a craft stone_pickaxe at bench effector.
+	 {'bench': 1, 'cobble': 3, 'plank': 3, 'stick': 2, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 2, 'plank': 3, 'stick': 2, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for cobble effector.
+	 {'bench': 1, 'cobble': 1, 'plank': 3, 'stick': 2, 'wooden_pickaxe': 1}
+This is a wooden_pickaxe for cobble effector.
+	 {'bench': 1, 'plank': 3, 'stick': 2, 'wooden_pickaxe': 1}
+This is a craft wooden_pickaxe at bench effector.
+	 {'bench': 1, 'plank': 6, 'stick': 4}
+This is a craft plank effector.
+	 {'bench': 1, 'plank': 2, 'stick': 4, 'wood': 1}
+This is a punch for wood effector.
+	 {'bench': 1, 'plank': 2, 'stick': 4}
+This is a craft bench effector.
+	 {'plank': 6, 'stick': 4}
+This is a craft plank effector.
+	 {'plank': 2, 'stick': 4, 'wood': 1}
+This is a punch for wood effector.
+	 {'plank': 2, 'stick': 4}
+This is a craft stick effector.
+	 {'plank': 4}
+This is a craft plank effector.
+	 {'wood': 1}
+This is a punch for wood effector.
+	 {}

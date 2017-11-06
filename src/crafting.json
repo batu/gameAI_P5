@@ -1,7 +1,6 @@
 {
  "Initial": {},
- "Goal": {
-   "cart":10,
+ "Goal": {"cart":10,
    "rail":80
  },
  "Items": [
